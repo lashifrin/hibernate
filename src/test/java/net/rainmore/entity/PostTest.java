@@ -1,7 +1,6 @@
-package net.rainmore.entityTest;
+package net.rainmore.entity;
 
 import net.rainmore.utils.HibernateUtils;
-import net.rainmore.entity.Post;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Query;
@@ -9,12 +8,12 @@ import org.hibernate.Session;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
-public class TestPost {
+public class PostTest {
 
     protected Logger logger = LogManager.getLogger(this.getClass());
 
     @Test
-    public void create() {
+    public void testCreate() {
         Post post = new Post();
         post.setTitle("test");
         post.setContent(" asd fsd fsda fsdaf sad fdsa fasdf");
