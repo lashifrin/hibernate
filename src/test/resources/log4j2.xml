@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="info" name="RoutingTest"
+               packages="org.apache.logging.log4j.test">
+    <properties>
+        <property name="filename">target/rolling1/rollingtest-$${sd:type}.log</property>
+    </properties>
+    <ThresholdFilter level="debug"/>
+
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <Console name="ConsoleInfo" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+    </appenders>
+    <loggers>
+        <!--<logger name="com.foo.Bar" level="trace" additivity="false">-->
+            <!--<appender-ref ref="Console"/>-->
+        <!--</logger>-->
+        <root level="error">
+            <appender-ref ref="Console"/>
+        </root>
+        <root level="info">
+            <appender-ref ref="ConsoleInfo"/>
+        </root>
+    </loggers>
+</configuration>
