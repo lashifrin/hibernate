@@ -8,6 +8,10 @@ import org.hibernate.Session;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 public class PostTest {
 
     protected Logger logger = LogManager.getLogger(this.getClass());
@@ -37,5 +41,25 @@ public class PostTest {
         session.getTransaction().commit();
         session.close();
 
+    }
+
+    @Test
+    public void testEntityManager() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("manager1");
+        EntityManager em = emf.createEntityManager();
+
+        Post post = new Post();
+        post.setTitle("test 2");
+        post.setContent(" asd fsd fsda fsdaf sad fdsa fasdf");
+        post.setPostDate(new DateTime());
+
+        em.persist(post);
+        em.flush(); // force the SQL insert and triggers to run
+        em.refresh(post); //re-read the state (after the trigger executes)
+
+        logger.info("post id: " + post.getId().toString());
+
+        em.close();
+        emf.close();
     }
 }
