@@ -1,5 +1,6 @@
 package net.rainmore.persistent.integrator;
 
+import net.rainmore.persistent.events.EntitySaveListener;
 import net.rainmore.persistent.events.EntitySaveOrUpdateListener;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
@@ -14,6 +15,7 @@ public class EntityAuditIntegrator implements Integrator {
     public void integrate(Configuration configuration, SessionFactoryImplementor sessionFactoryImplementor, SessionFactoryServiceRegistry sessionFactoryServiceRegistry) {
         final EventListenerRegistry eventListenerRegistry = sessionFactoryServiceRegistry.getService( EventListenerRegistry.class );
         eventListenerRegistry.prependListeners(EventType.SAVE_UPDATE, new EntitySaveOrUpdateListener());
+        eventListenerRegistry.prependListeners(EventType.SAVE, new EntitySaveListener());
     }
 
     public void integrate(MetadataImplementor metadataImplementor, SessionFactoryImplementor sessionFactoryImplementor, SessionFactoryServiceRegistry sessionFactoryServiceRegistry) {

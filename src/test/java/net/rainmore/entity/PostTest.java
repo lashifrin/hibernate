@@ -1,5 +1,6 @@
 package net.rainmore.entity;
 
+import junit.framework.Assert;
 import net.rainmore.utils.HibernateUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,18 +11,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.transaction.Transaction;
-
 public class PostTest {
 
     protected Logger logger = LogManager.getLogger(this.getClass());
-
+    protected Session session;
 
     @Before
     public void setUp() throws Exception {
+        session = HibernateUtils.getSessionFactory().openSession();
+        session.beginTransaction();
     }
 
     @Test
@@ -31,9 +29,6 @@ public class PostTest {
         post.setContent(" asd fsd fsda fsdaf sad fdsa fasdf");
         post.setPostDate(new DateTime());
 
-        Session session = HibernateUtils
-                .getSessionFactory().openSession();
-        session.beginTransaction();
         String sql = "TRUNCATE TABLE post";
         Query query = session.createSQLQuery(sql);
 
@@ -41,17 +36,16 @@ public class PostTest {
         session.flush();
 
         session.saveOrUpdate(post);
+        Assert.assertTrue("Id is " + post.getId().toString(), post.getId() == 1);
 
-        logger.info(post.getId() + " asd fasd fdsafsa");
-        post.setTitle(post.getTitle() + " adfa sdf sadf sadf ");
+        post.setTitle(post.getTitle() + " updated ");
         session.save(post);
-        logger.info(post.getId() + " asd fasd fdsafsa");
-        session.getTransaction().commit();
-        session.close();
-
+        Assert.assertTrue("Id is " + post.getId().toString(), post.getId() == 1);
     }
 
     @After
     public void tearDown() {
+        session.getTransaction().commit();
+        session.close();
     }
 }
