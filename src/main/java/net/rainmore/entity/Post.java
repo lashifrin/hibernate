@@ -1,6 +1,7 @@
 package net.rainmore.entity;
 
 import net.rainmore.common.DataEntity;
+import net.rainmore.common.EntityAuditableInterface;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -28,43 +29,6 @@ public class Post extends DataEntity implements Serializable {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime postDate;
 
-    @Column
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    protected DateTime sysCreatedDate;
-
-    @Column
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    protected DateTime sysUpdatedDate;
-
-    @PrePersist
-    public void prePersist() {
-        logger.info("pre persist in entity abstract");
-        DateTime dateTime = new DateTime();
-        setSysCreatedDate(dateTime);
-        setSysUpdatedDate(dateTime);
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        logger.info("pre update in entity abstract");
-        setSysUpdatedDate(new DateTime());
-    }
-
-    public DateTime getSysCreatedDate() {
-        return sysCreatedDate;
-    }
-
-    public void setSysCreatedDate(DateTime sysCreatedDate) {
-        this.sysCreatedDate = sysCreatedDate;
-    }
-
-    public DateTime getSysUpdatedDate() {
-        return sysUpdatedDate;
-    }
-
-    public void setSysUpdatedDate(DateTime sysUpdatedDate) {
-        this.sysUpdatedDate = sysUpdatedDate;
-    }
 
 //    private AuditData auditData = new AuditData();
 
@@ -98,5 +62,11 @@ public class Post extends DataEntity implements Serializable {
 
     public void setPostDate(DateTime postDate) {
         this.postDate = postDate;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        super.prePersist();
+        this.setTitle(this.getTitle() + " " + this.getSysCreatedDate().toString());
     }
 }

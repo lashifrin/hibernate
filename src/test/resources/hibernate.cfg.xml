@@ -23,24 +23,10 @@
 
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
-        
+
         <mapping package="net.rainmore.entity"></mapping>
         <mapping class="net.rainmore.entity.Post"></mapping>
 
-
-
-
-        <!--<event type="save-update">-->
-        <!--<listener class="net.rainmore.web.models.events.EntitySaveOrUpdateListener" />-->
-        <!--&lt;!&ndash;<listener class="org.hibernate.event.internal.DefaultSaveOrUpdateEventListener"/>&ndash;&gt;-->
-        <!--</event>-->
-        <!--<event type="pre-insert">-->
-        <!--<listener class="net.rainmore.web.models.events.EntityPreInsertListener" />-->
-        <!--<listener class="net.rainmore.web.models.events.EntitySysAuditLister" />-->
-        <!--</event>-->
-        <!--<event type="pre-update">-->
-        <!--<listener class="net.rainmore.web.models.events.EntitySysAuditLister" />-->
-        <!--</event>-->
     </session-factory>
 
 
