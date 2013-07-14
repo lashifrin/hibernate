@@ -18,12 +18,13 @@ public class PostTest {
 
     @Before
     public void setUp() throws Exception {
-        session = HibernateUtils.getSessionFactory().openSession();
-        session.beginTransaction();
+
     }
 
     @Test
     public void testCreate() {
+        session = HibernateUtils.getSessionFactory().openSession();
+        session.beginTransaction();
         Post post = new Post();
         post.setTitle("test");
         post.setContent(" asd fsd fsda fsdaf sad fdsa fasdf");
@@ -41,11 +42,34 @@ public class PostTest {
         post.setTitle(post.getTitle() + " updated ");
         session.save(post);
         Assert.assertTrue("Id is " + post.getId().toString(), post.getId() == 1);
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Test
+    public void testCreate1() {
+
+        Post post = new Post();
+        post.setTitle("test");
+
+        session = HibernateUtils.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        session.save(post);
+
+        Post post1 = (Post) session.get(Post.class, post.getId());
+        Assert.assertEquals(post1.getTitle(), post.getTitle());
+
+        logger.info(post1.getTitle());
+        logger.info(post.getTitle());
+
+        session.getTransaction().commit();
+        session.close();
     }
 
     @After
     public void tearDown() {
-        session.getTransaction().commit();
-        session.close();
+
     }
 }
