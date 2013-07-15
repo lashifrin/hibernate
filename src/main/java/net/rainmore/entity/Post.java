@@ -1,7 +1,6 @@
 package net.rainmore.entity;
 
-import net.rainmore.common.DataEntity;
-import net.rainmore.common.EntityAuditableInterface;
+import net.rainmore.common.persistent.AbstractEntity;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -11,7 +10,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "post")
-public class Post extends DataEntity implements Serializable {
+public class Post extends AbstractEntity implements Serializable {
 
     @Id
     @Column(unique = true, nullable = false)

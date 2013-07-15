@@ -1,5 +1,6 @@
-package net.rainmore.common;
+package net.rainmore.common.persistent;
 
+import net.rainmore.common.persistent.Auditable;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
@@ -10,7 +11,7 @@ import javax.persistence.PreUpdate;
 
 
 @MappedSuperclass
-public class DataEntity extends BaseEntity implements EntityAuditableInterface {
+public abstract class AbstractEntity implements Auditable {
 
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column

@@ -1,16 +1,15 @@
 package net.rainmore.common.pager;
 
 import junit.framework.Assert;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import net.rainmore.AbstractTest;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PagerTest {
-
-    protected Logger logger = LogManager.getLogger(this.getClass());
+public class PagerTest extends AbstractTest {
 
     @Test
     public void testPager() {
@@ -48,8 +47,9 @@ public class PagerTest {
 
         pager1.setPageNumber(6);
         pager1.init();
-        logger.info(pager1.getPageSize());
-        logger.info(pager1.getPageNumber());
+        logger.info("tesdf");
+        logger.info(Integer.toString(pager1.getPageSize()));
+        logger.info(Integer.toString(pager1.getPageNumber()));
         logger.info(pager1.getCount().toString());
         Assert.assertEquals(1, pager1.getFirst());
         Assert.assertEquals(6, pager1.getLast());

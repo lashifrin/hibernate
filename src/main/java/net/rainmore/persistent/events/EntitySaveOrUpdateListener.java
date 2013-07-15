@@ -1,16 +1,14 @@
 package net.rainmore.persistent.events;
 
-import net.rainmore.common.DataEntity;
-import net.rainmore.common.EntityAuditableInterface;
+import net.rainmore.common.persistent.AbstractEntity;
 import org.hibernate.event.internal.DefaultSaveOrUpdateEventListener;
 import org.hibernate.event.spi.SaveOrUpdateEvent;
-import org.joda.time.DateTime;
 
 public class EntitySaveOrUpdateListener extends DefaultSaveOrUpdateEventListener {
     @Override
     public void onSaveOrUpdate(SaveOrUpdateEvent event) {
-        if (event.getObject() instanceof DataEntity) {
-            DataEntity record = (DataEntity) event.getObject();
+        if (event.getObject() instanceof AbstractEntity) {
+            AbstractEntity record = (AbstractEntity) event.getObject();
 
             if (record.getSysCreatedDate() == null)
                 record.prePersist();

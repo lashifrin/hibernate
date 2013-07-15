@@ -1,0 +1,24 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	runtime (
+		[group: 'mysql', name: 'mysql-connector-java', version: '5.1.23']
+	)
+    compile (
+    	[group: 'org.hibernate', name: 'hibernate-core', version: '4.2.3.Final'],
+    	[group: 'org.hibernate', name: 'hibernate-core', version: '4.2.3.Final'],
+    	[group: 'joda-time', name: 'joda-time', version: '2.2'],
+    	[group: 'org.jadira.usertype', name: 'usertype.core', version: '3.1.0.CR8'],
+    	[group: 'org.slf4j', name: 'slf4j-api', version: '1.7.5'],
+    	[group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.0-beta8'],
+    	[group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.0-beta8'],
+    	[group: 'org.apache.commons', name: 'commons-lang3', version: '3.1']
+    )
+    testCompile (
+    	[group: 'junit', name: 'junit', version: '4.9']
+    )
+}
